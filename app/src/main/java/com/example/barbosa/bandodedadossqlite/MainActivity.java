@@ -23,11 +23,33 @@ public class MainActivity extends AppCompatActivity {
 
             //Inserir dados
 
-            bancoDados.execSQL("INSERT INTO pessoas(nome, idade) VALUES ('Luciano', 30)");
-            bancoDados.execSQL("INSERT INTO pessoas(nome, idade) VALUES ('Julia', 60)");
+            //bancoDados.execSQL("INSERT INTO pessoas(nome, idade) VALUES ('Roberto', 20)");
+            //bancoDados.execSQL("INSERT INTO pessoas(nome, idade) VALUES ('Juju', 23)");
 
             //recuperar os dados
-            Cursor cursor = bancoDados.rawQuery("SELECT nome, idade FROM pessoas", null);
+            /*String consulta =
+                    "SELECT nome, idade FROM pessoas" +
+                    "WHERE nome = 'Luciano' AND idade = 30 ";*/
+
+            /*String consulta =
+                    "SELECT nome, idade FROM pessoas" +
+                    "WHERE idade >= 35 OR idade = 18";*/
+
+            /*String consulta =
+                    " SELECT nome, idade FROM pessoas " +
+                     " WHERE nome IN ('Roberto', 'Luciano')";*/
+
+            /*String consulta =
+                    " SELECT nome, idade FROM pessoas " +
+                    " WHERE idade BETWEEN 20 AND 60";*/
+
+            String consulta =
+                    " SELECT nome, idade FROM pessoas " +
+                    " WHERE 1=1 ORDER BY nome ASC LIMIT 2";
+
+
+
+            Cursor cursor = bancoDados.rawQuery(consulta, null);
 
             //Indices da tebela
 
@@ -37,8 +59,12 @@ public class MainActivity extends AppCompatActivity {
             cursor.moveToFirst();
 
             while (cursor != null){
-                Log.i("RESULTADO - nome: ", cursor.getString(indiceNome));
-                Log.i("RESULTADO - idade: ", cursor.getString(indiceIdade));
+
+                String nome = cursor.getString(indiceNome);
+                String idade = cursor.getString(indiceIdade);
+
+                Log.i("RESULTADO - nome ", nome + "idade: " + idade);
+
                 cursor.moveToNext();
             }
 
